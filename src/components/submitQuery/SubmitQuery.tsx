@@ -1,0 +1,87 @@
+import { useLayoutEffect, useState } from "react";
+
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import CircularProgress from "@mui/material/CircularProgress";
+
+type props = {
+  dataType: string;
+  species: string;
+  fields: string;
+  condition: string;
+};
+
+type response = {
+  query_id: string;
+  _links: any;
+};
+
+const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useState<response>({
+    query_id: "",
+    _links: [],
+  });
+
+  useLayoutEffect(() => {
+    let url = new URL(
+      `${process.env.REACT_APP_BACKEND}/query/${dataType}/${species}`
+    );
+    if (fields) {
+      url.searchParams.append("fields", fields);
+    }
+    if (condition) {
+      url.searchParams.append("condition", condition);
+    }
+
+    setIsLoading(true);
+    fetch(url.toString())
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoading(false);
+          setItems(result);
+          localStorage.setItem("queryID", result.query_id);
+        },
+        (error) => {
+          setIsLoading(false);
+          setError(error);
+        }
+      );
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="m-4">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="m-4">
+        <Alert severity="error">
+          We are facing some technical difficulties, please try again later!
+        </Alert>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="m-5">
+        <Alert severity="success" variant="filled">
+          <AlertTitle>Query ID:</AlertTitle>
+          {items.query_id}
+        </Alert>
+        <Alert severity="info" className="mt-2" variant="outlined">
+          Make sure to save the <b>query ID</b> to check status and export
+          result to different file formats.
+        </Alert>
+      </div>
+    </>
+  );
+};
+export default SubmitQuery;
