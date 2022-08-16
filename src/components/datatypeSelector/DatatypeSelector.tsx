@@ -24,17 +24,20 @@ const DatatypeSelector = ({ value, setValue }: props) => {
   useLayoutEffect(() => {
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/data_types`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoading(false);
-          setItems(result);
-        },
-        (error) => {
-          setIsLoading(false);
-          setError(error);
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
         }
-      );
+        return Promise.reject(res.statusText);
+      })
+      .then((result) => {
+        setIsLoading(false);
+        setItems(result);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error);
+      });
   }, []);
 
   if (isLoading) {
@@ -49,7 +52,7 @@ const DatatypeSelector = ({ value, setValue }: props) => {
     return (
       <div className="m-4">
         <Alert severity="error">
-          We are facing some technical difficulties, please try again later!
+          Encountered some technical difficulties, please try again later!
         </Alert>
       </div>
     );

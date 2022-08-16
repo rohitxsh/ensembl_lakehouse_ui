@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useMemo } from "react";
 
-import { filter } from "../speciesSelector/interfaces";
+import { filter } from "../stepsManager/interfaces";
 
 type props = {
   data: filter[];

@@ -10,12 +10,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 
 import DatatypeSelector from "../datatypeSelector";
-import SpeciesSelector from "../speciesSelector/SpeciesSelector";
+import SpeciesSelector from "../speciesSelector";
 import CreateQuery from "../createQuery";
 import ShowFilters from "../showFilters";
-
-import { filter } from "../speciesSelector/interfaces";
 import SubmitQuery from "../submitQuery";
+
+import { filter } from "./interfaces";
 
 const StepsManager = () => {
   const [activeStep, setActiveStep] = useState(0);

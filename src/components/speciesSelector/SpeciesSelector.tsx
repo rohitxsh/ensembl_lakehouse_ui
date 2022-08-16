@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-import { filter } from "./interfaces";
+import { filter } from "../stepsManager/interfaces";
 
 type props = {
   dataType: string;
@@ -28,18 +28,21 @@ const SpeciesSelector = ({ dataType, value, setValue, setFilters }: props) => {
   useLayoutEffect(() => {
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/filters/${dataType}`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoading(false);
-          setItems(result["species"]);
-          setFilters(result["columns"]);
-        },
-        (error) => {
-          setIsLoading(false);
-          setError(error);
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
         }
-      );
+        return Promise.reject(res.statusText);
+      })
+      .then((result) => {
+        setIsLoading(false);
+        setItems(result["species"]);
+        setFilters(result["columns"]);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error);
+      });
   }, [dataType]);
 
   if (isLoading) {
@@ -54,7 +57,7 @@ const SpeciesSelector = ({ dataType, value, setValue, setFilters }: props) => {
     return (
       <div className="m-4">
         <Alert severity="error">
-          We are facing some technical difficulties, please try again later!
+          Encountered some technical difficulties, please try again later!
         </Alert>
       </div>
     );

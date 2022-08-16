@@ -37,18 +37,21 @@ const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
 
     setIsLoading(true);
     fetch(url.toString())
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoading(false);
-          setItems(result);
-          localStorage.setItem("queryID", result.query_id);
-        },
-        (error) => {
-          setIsLoading(false);
-          setError(error);
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
         }
-      );
+        return Promise.reject(res.statusText);
+      })
+      .then((result) => {
+        setIsLoading(false);
+        setItems(result);
+        localStorage.setItem("queryID", result.query_id);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error);
+      });
   }, []);
 
   if (isLoading) {
@@ -60,10 +63,13 @@ const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
   }
 
   if (error) {
+    console.log(error);
     return (
       <div className="m-4">
         <Alert severity="error">
-          We are facing some technical difficulties, please try again later!
+          {error === "Internal Server Error"
+            ? "Encountered some error, please re-verify your query and try again!"
+            : "Encountered some technical difficulties, please try again later!"}
         </Alert>
       </div>
     );

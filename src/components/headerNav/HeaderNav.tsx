@@ -6,9 +6,6 @@ import Button from "@mui/material/Button";
 import BiotechIcon from "@mui/icons-material/Biotech";
 import { Link } from "react-router-dom";
 
-const title = "Ensembl's lakehouse";
-const pages = ["Status", "Export"];
-
 const HeaderNav = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -17,12 +14,14 @@ const HeaderNav = () => {
           <BiotechIcon />
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">{title}</Link>
+            <Link to="/">Ensembl's lakehouse</Link>
           </Typography>
 
-          {pages.map((page) => (
-            <Button color="inherit">{page}</Button>
-          ))}
+          {window.location.pathname !== "/status" && (
+            <Button color="inherit">
+              <Link to="/status">Status</Link>
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
