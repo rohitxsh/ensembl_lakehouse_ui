@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import HeaderNav from "./components/headerNav";
 import StepsManager from "./components/stepsManager";
 import QueryStatus from "./components/queryStatus";
+import ExportQuery from "./components/exportQuery";
 
 function App() {
   return (
@@ -21,6 +22,15 @@ function App() {
           <>
             <HeaderNav />
             <QueryStatus />
+          </>
+        }
+      />
+      <Route
+        path="/export"
+        element={
+          <>
+            <HeaderNav />
+            <ExportQuery />
           </>
         }
       />

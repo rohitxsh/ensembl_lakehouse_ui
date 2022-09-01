@@ -22,6 +22,12 @@ const HeaderNav = () => {
               <Link to="/status">Status</Link>
             </Button>
           )}
+
+          {window.location.pathname !== "/export" && (
+            <Button color="inherit">
+              <Link to="/export">Export</Link>
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

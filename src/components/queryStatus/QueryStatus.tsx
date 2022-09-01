@@ -16,7 +16,7 @@ const QueryStatus = () => {
 
   return (
     <div className="flex flex-col items-center mt-10">
-      <Card elevation={5} sx={{ m: 2, p: 4, minWidth: 350, maxWidth: 400 }}>
+      <Card elevation={5} sx={{ m: 2, p: 4, minWidth: 420 }}>
         <div className="flex flex-col">
           <div>
             <TextField
@@ -45,15 +45,15 @@ const QueryStatus = () => {
       </Card>
       {showQueryStatus && queryID && (
         <>
-          {!statusFetchError && fetchedQueryStatus === "SUCCEEDED" && (
-            <ShowPreview queryID={queryID} />
-          )}
           <ShowStatus
             queryID={queryID}
             error={statusFetchError}
             setError={setStatusFetchError}
             setFetchedQueryStatus={setFetchedQueryStatus}
           />
+          {!statusFetchError && fetchedQueryStatus === "SUCCEEDED" && (
+            <ShowPreview queryID={queryID} />
+          )}
         </>
       )}
     </div>

@@ -7,22 +7,30 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-import { filter } from "../stepsManager/interfaces";
+import { filter } from "../stepsManager";
 
 type props = {
   dataType: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   setFilters: Dispatch<SetStateAction<filter[]>>;
+  goNext: () => void;
 };
 
-const SpeciesSelector = ({ dataType, value, setValue, setFilters }: props) => {
+const SpeciesSelector = ({
+  dataType,
+  value,
+  setValue,
+  setFilters,
+  goNext,
+}: props) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
+    goNext();
   };
 
   useLayoutEffect(() => {

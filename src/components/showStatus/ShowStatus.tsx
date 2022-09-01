@@ -86,7 +86,7 @@ const ShowStatus = ({
   }
 
   return (
-    <Card elevation={5} sx={{ m: 2, p: 4, minWidth: 350, maxWidth: 400 }}>
+    <Card elevation={5} sx={{ m: 2, p: 4, minWidth: 420 }}>
       <Alert severity={(alertSeverity as any)[response.status] as AlertColor}>
         Status: <b>{response.status}</b>
       </Alert>

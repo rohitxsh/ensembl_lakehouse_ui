@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,7 +16,7 @@ import CreateQuery from "../createQuery";
 import ShowFilters from "../showFilters";
 import SubmitQuery from "../submitQuery";
 
-import { filter } from "./interfaces";
+import { filter } from "./";
 
 const StepsManager = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -46,21 +47,25 @@ const StepsManager = () => {
 
   const steps = [
     {
-      label: dataType ? `Data type: ${dataType}` : "Select data type",
-      description: <DatatypeSelector value={dataType} setValue={setDataType} />,
-      value: dataType,
-    },
-    {
-      label: species ? `Species: ${species}` : "Select species",
+      label:
+        dataType && species
+          ? `Datatype: ${dataType}, Species: ${species}`
+          : "Select datatype and species",
       description: (
-        <SpeciesSelector
-          dataType={dataType}
-          value={species}
-          setValue={setSpecies}
-          setFilters={setFilters}
-        />
+        <>
+          <DatatypeSelector value={dataType} setValue={setDataType} />
+          {dataType && (
+            <SpeciesSelector
+              dataType={dataType}
+              value={species}
+              setValue={setSpecies}
+              setFilters={setFilters}
+              goNext={() => handleNext()}
+            />
+          )}
+        </>
       ),
-      value: species,
+      value: dataType && species,
     },
     {
       label: "Build your query",
@@ -101,7 +106,7 @@ const StepsManager = () => {
 
   return (
     <div className="flex justify-center m-5 mt-8">
-      <Box sx={{ maxWidth: 400 }}>
+      <Box sx={{ maxWidth: 1500, minWidth: 400 }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
             <Step key={step.label}>
@@ -111,14 +116,16 @@ const StepsManager = () => {
                 <Box sx={{ mt: 2, mb: 2 }}>
                   <div>
                     {index !== steps.length - 1 ? (
-                      <Button
-                        disabled={!step.value}
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        Continue
-                      </Button>
+                      index === 1 && (
+                        <Button
+                          disabled={!step.value}
+                          variant="contained"
+                          onClick={handleNext}
+                          sx={{ mt: 1, mr: 1 }}
+                        >
+                          Continue
+                        </Button>
+                      )
                     ) : (
                       <Button
                         disabled={!step.value}
@@ -153,10 +160,13 @@ const StepsManager = () => {
               fields={fields}
               condition={condition}
             />
+            <Button sx={{ mt: 1, ml: 2 }} variant="contained">
+              <Link to="/status">Check query status</Link>
+            </Button>
             <Button
               onClick={handleReset}
               sx={{ mt: 1, ml: 2 }}
-              variant="contained"
+              variant="outlined"
             >
               Reset
             </Button>

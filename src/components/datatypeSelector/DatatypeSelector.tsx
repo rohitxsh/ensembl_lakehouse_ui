@@ -62,7 +62,7 @@ const DatatypeSelector = ({ value, setValue }: props) => {
     <>
       <div className="m-2 ml-0">
         <FormControl sx={{ m: 1, minWidth: 240, maxWidth: 500 }}>
-          <InputLabel id="data-type-select-label">Data type</InputLabel>
+          <InputLabel id="data-type-select-label">Datatype</InputLabel>
           <Select
             labelId="data-type-select-label"
             id="data-type-select"

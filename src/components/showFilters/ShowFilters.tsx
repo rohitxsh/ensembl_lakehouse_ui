@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useMemo } from "react";
 
-import { filter } from "../stepsManager/interfaces";
+import { filter } from "../stepsManager";
 
 type props = {
   data: filter[];
@@ -15,22 +15,16 @@ const columns: GridColDef[] = [
   {
     field: "Name",
     headerName: "Filter",
-    width: 130,
+    width: 350,
     sortable: false,
     valueGetter: (params: GridValueGetterParams) => `${params.row.Name}`,
-  },
-  {
-    field: "Type",
-    headerName: "Data type",
-    width: 130,
-    sortable: false,
   },
 ];
 
 const ShowFilters = ({ data, setFields }: props) => {
   const availableFilters = useMemo(() => {
     return data.map((filter) => ({
-      ...filter,
+      Name: `${filter["Name"]} <${filter["Type"]}>`,
       id: filter["Name"],
     }));
   }, [data]);
