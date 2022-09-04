@@ -4,11 +4,14 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { condition } from "../stepsManager";
+
 type props = {
   dataType: string;
   species: string;
   fields: string;
-  condition: string;
+  conditions: condition[];
+  customCondition: string;
 };
 
 type response = {
@@ -16,7 +19,13 @@ type response = {
   _links: any;
 };
 
-const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
+const SubmitQuery = ({
+  dataType,
+  species,
+  fields,
+  conditions,
+  customCondition,
+}: props) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<response>({
@@ -31,8 +40,8 @@ const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
     if (fields) {
       url.searchParams.append("fields", fields);
     }
-    if (condition) {
-      url.searchParams.append("condition", condition);
+    if (customCondition) {
+      url.searchParams.append("condition", customCondition);
     }
 
     setIsLoading(true);

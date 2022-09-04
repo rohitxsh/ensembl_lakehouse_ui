@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Alert, { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
@@ -91,11 +92,16 @@ const ShowStatus = ({
         Status: <b>{response.status}</b>
       </Alert>
       {response.status === "SUCCEEDED" && (
-        <Button sx={{ mt: 3 }} variant="contained">
-          <a href={response.result} target="_blank" rel="noopener noreferrer">
-            Download [.csv]
-          </a>
-        </Button>
+        <>
+          <Button sx={{ mt: 3 }} variant="contained">
+            <a href={response.result} target="_blank" rel="noopener noreferrer">
+              Download [.csv]
+            </a>
+          </Button>
+          <Button sx={{ ml: 2, mt: 3 }} variant="outlined">
+            <Link to="/export">Export result</Link>
+          </Button>
+        </>
       )}
     </Card>
   );

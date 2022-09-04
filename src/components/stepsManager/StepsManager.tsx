@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import Step from "@mui/material/Step";
 import Stepper from "@mui/material/Stepper";
 import StepContent from "@mui/material/StepContent";
@@ -15,16 +14,18 @@ import SpeciesSelector from "../speciesSelector";
 import CreateQuery from "../createQuery";
 import ShowFilters from "../showFilters";
 import SubmitQuery from "../submitQuery";
+import ReviewQuery from "../reviewQuery";
 
-import { filter } from "./";
+import { filter, condition } from "./";
 
 const StepsManager = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState<number>(0);
 
-  const [dataType, setDataType] = useState("");
-  const [species, setSpecies] = useState("");
-  const [fields, setFields] = useState("");
-  const [condition, setCondition] = useState("");
+  const [dataType, setDataType] = useState<string>("");
+  const [species, setSpecies] = useState<string>("");
+  const [fields, setFields] = useState<string>("");
+  const [conditions, setConditions] = useState<condition[]>([]);
+  const [customCondition, setCustomCondition] = useState<string>("");
 
   const [filters, setFilters] = useState<filter[]>([]);
 
@@ -41,7 +42,8 @@ const StepsManager = () => {
     setDataType("");
     setSpecies("");
     setFields("");
-    setCondition("");
+    setConditions([]);
+    setCustomCondition("");
     setFilters([]);
   };
 
@@ -75,7 +77,10 @@ const StepsManager = () => {
             dataType={dataType}
             species={species}
             fields={fields}
-            setCondition={setCondition}
+            conditions={conditions}
+            setConditions={setConditions}
+            customCondition={customCondition}
+            setCustomCondition={setCustomCondition}
           />
           <div className="mb-5 mt-5">
             <ShowFilters data={filters} setFields={setFields} />
@@ -87,18 +92,14 @@ const StepsManager = () => {
     {
       label: "Review your query",
       description: (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>
-            {`SELECT ${
-              fields || "*"
-            } FROM ${dataType} WHERE species='${species}' ${
-              condition && `AND ${condition}`
-            };`}
-          </Typography>
-          <Button variant="contained" onClick={handleBack} sx={{ mt: 1 }}>
-            Back
-          </Button>
-        </Paper>
+        <ReviewQuery
+          dataType={dataType}
+          species={species}
+          fields={fields}
+          conditions={conditions}
+          customCondition={customCondition}
+          handleBack={handleBack}
+        />
       ),
       value: true,
     },
@@ -158,7 +159,8 @@ const StepsManager = () => {
               dataType={dataType}
               species={species}
               fields={fields}
-              condition={condition}
+              conditions={conditions}
+              customCondition={customCondition}
             />
             <Button sx={{ mt: 1, ml: 2 }} variant="contained">
               <Link to="/status">Check query status</Link>

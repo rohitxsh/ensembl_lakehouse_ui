@@ -72,16 +72,12 @@ const ShowPreview = ({ queryID }: props) => {
   return (
     <Card elevation={5} sx={{ m: 1, p: 4, minWidth: 350, maxWidth: 1000 }}>
       <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
           <Typography>Preview</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
                   {response &&

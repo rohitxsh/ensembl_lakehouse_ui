@@ -9,12 +9,17 @@ import { Link } from "react-router-dom";
 const HeaderNav = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: "#336" }}>
         <Toolbar>
           <BiotechIcon />
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">Ensembl's lakehouse</Link>
+            <Link to="/">
+              <b>
+                e<span style={{ color: "red" }}>!</span>
+              </b>
+              Ensembl Data LakeHouse
+            </Link>
           </Typography>
 
           {window.location.pathname !== "/status" && (

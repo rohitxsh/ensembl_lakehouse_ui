@@ -1,2 +1,2 @@
 export { default } from "./StepsManager";
-export type { filter } from "./interfaces";
+export type { filter, condition } from "./interfaces";

@@ -1,157 +1,79 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Chip from "@mui/material/Chip";
 import Card from "@mui/material/Card";
-import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
+
+import { filters } from "./filters";
+import { condition } from "../stepsManager";
+import InputCondition from "../inputCondition";
 
 type props = {
   dataType: string;
   species: string;
   fields: string;
-  setCondition: Dispatch<SetStateAction<string>>;
+  conditions: condition[];
+  setConditions: Dispatch<SetStateAction<condition[]>>;
+  customCondition: string;
+  setCustomCondition: Dispatch<SetStateAction<string>>;
 };
 
-const CreateQuery = ({ dataType, species, fields, setCondition }: props) => {
-  const [showConditionInput, setShowConditionInput] = useState(false);
+const CreateQuery = ({
+  dataType,
+  species,
+  fields,
+  conditions,
+  setConditions,
+  customCondition,
+  setCustomCondition,
+}: props) => {
+  const [showCustomConditionalInput, setShowCustomConditionalInput] = useState(
+    !!customCondition || false
+  );
 
-  const handleShowConditionInput = () => {
-    setShowConditionInput(true);
+  // const handleShowConditionInput = () => {
+  //   handleClose();
+  // };
+
+  // const saveCondition = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setConditions([
+  //     ...conditions,
+  //     { id: event.target.id, value: event.target.value },
+  //   ]);
+  // };
+
+  const handleShowCustomConditionInput = () => {
+    setCustomCondition("");
+    setShowCustomConditionalInput(!showCustomConditionalInput);
+    handleClose();
   };
 
-  const saveCondition = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCondition(event.target.value);
+  const saveCustomCondition = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomCondition(event.target.value);
   };
 
-  const gene_filters = {
-    $id: "https://www.ensembl.org/lakehouse.gene.schema.json",
-    $schema: "https://json-schema.org/draft/2020-12/schema",
-    description:
-      "A representation of a gene held in Ensembl's lakehouse querying tool",
-    type: "object",
-    properties: {
-      gene_id: {
-        type: "int",
-        minimum: 0,
-        description: "Internal gene_id",
-        lakehouse: {
-          queriable: false,
-          retreivable: false,
-        },
-      },
-      gene_stable_id: {
-        type: "string",
-        description: "Gene stable identifier",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-      gene_stable_id_version: {
-        type: "int",
-        description: "Gene stable identifier version",
-        lakehouse: {
-          queriable: true,
-          retreivable: false,
-        },
-      },
-      gene_chr: {
-        type: "string",
-        description: "Chromosome name gene is located on",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-      gene_location: {
-        type: "string",
-        description: "Location of a gene formatted as chr:start-end",
-        pattern: "^\\s+(?:\\d+-\\d+)?",
-        lakehouse: {
-          composite: true,
-          composite_fields: ["gene_start", "gene_end"],
-          queriable: true,
-          retreivable: false,
-        },
-      },
-      gene_start: {
-        type: "int",
-        minimum: 1,
-        description: "Chromosome start coordinate (in 1-based coordinate)",
-        lakehouse: {
-          queriable: false,
-          retreivable: true,
-        },
-      },
-      gene_end: {
-        type: "int",
-        minimum: 1,
-        description: "Chromosome end coordinate (in 1-based coordinate)",
-        lakehouse: {
-          queriable: false,
-          retreivable: true,
-        },
-      },
-      gene_biotype: {
-        type: "string",
-        description: "Gene type e.g. protein_coding",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-      gene_symbol_id: {
-        type: "string",
-        description:
-          "Symbol identifier assigned. Usually used as a more stable way of referring to a gene symbol.",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-      gene_symbol: {
-        type: "string",
-        description: "Symbol assigned",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-      canonical_transcript_stable_id: {
-        type: "string",
-        description: "Canonical transcript's stable identifier",
-        lakehouse: {
-          queriable: false,
-          retreivable: true,
-        },
-      },
-      canonical_transcript_stable_id_version: {
-        type: "int",
-        minimum: 0,
-        description: "Canonical transcript's stable identifier version",
-        lakehouse: {
-          queriable: false,
-          retreivable: true,
-        },
-      },
-      canonical_transcript_biotype: {
-        type: "string",
-        minimum: 0,
-        description: "Type of the canonical transcript e.g. protein_coding",
-        lakehouse: {
-          queriable: false,
-          retreivable: true,
-        },
-      },
-      species: {
-        type: "string",
-        description: "Species this data is linked to",
-        lakehouse: {
-          queriable: true,
-          retreivable: true,
-        },
-      },
-    },
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const style = {
+    padding: 1,
+    width: "100%",
+    minWidth: 250,
+    maxWidth: 500,
+    bgcolor: "background.paper",
   };
 
   return (
@@ -186,37 +108,52 @@ const CreateQuery = ({ dataType, species, fields, setCondition }: props) => {
             </Tooltip>
           </div>
         </div>
-        {showConditionInput ? (
-          <div className="m-2">
-            <div>
-              <Chip label={"AND"} />
-            </div>
-            <div className="mt-2">
-              <TextField
-                id="condition"
-                label="Condition"
-                helperText={
-                  <>
-                    example: gene_id=554 AND gene_stable_id='ENSG00000210049'{" "}
-                    <br />
-                    [Make sure to wrap string data type with single quotes]
-                  </>
-                }
-                onChange={saveCondition}
-                multiline
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="m-2">
-            <Chip
-              label={<b>+</b>}
-              variant="outlined"
-              onClick={handleShowConditionInput}
-            />
-          </div>
+        {showCustomConditionalInput && (
+          <InputCondition
+            handleShowConditionInput={() => handleShowCustomConditionInput}
+            id="customCondition"
+            label="Custom condition"
+            defaultValue={customCondition}
+            helperText={
+              <>
+                example: gene_id=554 AND gene_stable_id='ENSG00000210049' <br />
+                [Make sure to wrap string data type with single quotes]
+              </>
+            }
+            saveCondition={saveCustomCondition}
+          />
         )}
+        <div className="m-2">
+          <Chip label={<b>+</b>} variant="outlined" onClick={handleClickOpen} />
+        </div>
       </Card>
+      <Dialog open={open} onClose={handleClose}>
+        <List sx={style} component="nav">
+          {filters.map(
+            (filter) =>
+              filter["filter"] === dataType &&
+              filter["properties"].map((property, index) =>
+                index !== filters.length ? (
+                  <ListItem button divider>
+                    <ListItemText primary={property["name"]} />
+                  </ListItem>
+                ) : (
+                  <ListItem button>
+                    <ListItemText primary={property["name"]} />
+                  </ListItem>
+                )
+              )
+          )}
+          <Divider style={{ color: "darkgrey" }}> - - - </Divider>
+          <ListItem
+            button
+            disabled={showCustomConditionalInput}
+            onClick={handleShowCustomConditionInput}
+          >
+            <ListItemText primary={"Custom filter"} />
+          </ListItem>
+        </List>
+      </Dialog>
     </div>
   );
 };

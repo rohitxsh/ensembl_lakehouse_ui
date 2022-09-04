@@ -14,7 +14,8 @@ type props = {
 const columns: GridColDef[] = [
   {
     field: "Name",
-    headerName: "Filter",
+    headerName:
+      "Select data fields to retain in result (*all fields are retained by default)",
     width: 350,
     sortable: false,
     valueGetter: (params: GridValueGetterParams) => `${params.row.Name}`,
