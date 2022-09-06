@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import Accordion from "@mui/material/Accordion";
@@ -16,7 +16,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-
 type props = {
   queryID: string;
 };
@@ -30,7 +29,7 @@ const ShowPreview = ({ queryID }: props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<previewResponse>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setError(null);
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/query/${queryID}/preview`)

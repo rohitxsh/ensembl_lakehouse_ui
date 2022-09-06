@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,7 +25,7 @@ const ExportQuery = () => {
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const [response, setResponse] = useState<statusResponse>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/result_file_formats`)
       .then((res) => {

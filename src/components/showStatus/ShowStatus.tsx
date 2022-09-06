@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Alert, { AlertColor } from "@mui/material/Alert";
@@ -38,7 +38,7 @@ const ShowStatus = ({
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setError(null);
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/query/${queryID}/status`)

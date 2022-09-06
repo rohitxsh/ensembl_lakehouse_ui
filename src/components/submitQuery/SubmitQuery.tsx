@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Alert from "@mui/material/Alert";
@@ -26,7 +26,7 @@ const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
     _links: [],
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let url = new URL(
       `${process.env.REACT_APP_BACKEND}/query/${dataType}/${species}`
     );

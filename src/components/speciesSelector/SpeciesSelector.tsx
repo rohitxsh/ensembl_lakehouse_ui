@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useLayoutEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -33,7 +33,7 @@ const SpeciesSelector = ({
     goNext();
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}/filters/${dataType}`)
       .then((res) => {
