@@ -9,29 +9,17 @@ export const filters = [
     properties: [
       {
         name: "gene_stable_id",
-        type: "string",
         description: "Gene stable identifier",
-        lakehouse: {
-          input: ["gene_stable_id"],
-          query: "gene_stable_id='{gene_stable_id}'",
-          queriable: true,
-          retreivable: true,
-        },
+        input: ["gene_stable_id"],
+        query: "gene_stable_id='{gene_stable_id}'",
       },
       {
         name: "gene_location",
-        type: "string",
         description: "Location of a gene formatted as chr:start-end",
         pattern: "^\\s+(?:\\d+-\\d+)?",
-        lakehouse: {
-          composite: true,
-          composite_fields: ["gene_start", "gene_end"],
-          input: ["gene_chr", "start", "end"],
-          query:
-            "gene_chr='{gene_chr}' AND ((gene_start >= {start} AND gene_start <= {end}) OR (gene_end >= {start} AND gene_end <= {end}) OR (gene_start <= {end} AND gene_end >= {start}))",
-          queriable: true,
-          retreivable: false,
-        },
+        input: ["gene_chr", "start", "end"],
+        query:
+          "gene_chr='{gene_chr}' AND ((gene_start >= {start} AND gene_start <= {end}) OR (gene_end >= {start} AND gene_end <= {end}) OR (gene_start <= {end} AND gene_end >= {start}))",
       },
     ],
   },

@@ -71,7 +71,9 @@ const DatatypeSelector = ({ value, setValue }: props) => {
             onChange={handleChange}
           >
             {items.map((item) => (
-              <MenuItem value={item}>{item}</MenuItem>
+              <MenuItem value={item} key={item}>
+                {item}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

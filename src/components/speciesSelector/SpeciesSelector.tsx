@@ -85,7 +85,9 @@ const SpeciesSelector = ({
           onChange={handleChange}
         >
           {items.map((item: string) => (
-            <MenuItem value={item}>{item}</MenuItem>
+            <MenuItem value={item} key={item}>
+              {item}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

@@ -1,17 +1,16 @@
 import { useLayoutEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-
-import { condition } from "../stepsManager";
 
 type props = {
   dataType: string;
   species: string;
   fields: string;
-  conditions: condition[];
-  customCondition: string;
+  condition: string;
 };
 
 type response = {
@@ -19,13 +18,7 @@ type response = {
   _links: any;
 };
 
-const SubmitQuery = ({
-  dataType,
-  species,
-  fields,
-  conditions,
-  customCondition,
-}: props) => {
+const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<response>({
@@ -35,13 +28,14 @@ const SubmitQuery = ({
 
   useLayoutEffect(() => {
     let url = new URL(
-      `${process.env.REACT_APP_BACKEND}/query/${dataType}/${species}`
+      `${process.env.REACT_APP_BACKEND}/query1/${dataType}/${species}`
     );
     if (fields) {
       url.searchParams.append("fields", fields);
     }
-    if (customCondition) {
-      url.searchParams.append("condition", customCondition);
+
+    if (condition) {
+      url.searchParams.append("condition", condition);
     }
 
     setIsLoading(true);
@@ -72,7 +66,6 @@ const SubmitQuery = ({
   }
 
   if (error) {
-    console.log(error);
     return (
       <div className="m-4">
         <Alert severity="error">
@@ -96,6 +89,9 @@ const SubmitQuery = ({
           result to different file formats.
         </Alert>
       </div>
+      <Button sx={{ mt: 1, ml: 2 }} variant="contained">
+        <Link to="/status">Check query status</Link>
+      </Button>
     </>
   );
 };

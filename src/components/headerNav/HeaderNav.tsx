@@ -15,10 +15,10 @@ const HeaderNav = () => {
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/">
-              <b>
-                e<span style={{ color: "red" }}>!</span>
-              </b>
-              Ensembl Data LakeHouse
+              <div className="flex ml-2">
+                <img src={require("../../logo.png")} height="20" width="20" />
+                Ensembl Data LakeHouse
+              </div>
             </Link>
           </Typography>
 

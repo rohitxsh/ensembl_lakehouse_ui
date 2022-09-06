@@ -3,7 +3,18 @@ export interface filter {
   Type: string;
 }
 
-export interface condition {
-  id: string;
-  value: string;
+export interface ICondition {
+  [id: string]: Condition;
+}
+
+interface Condition {
+  property: string;
+  values: ConditionValues;
+  inputs: string[];
+  query: string;
+  description: string;
+}
+
+export interface ConditionValues {
+  [key: string]: string;
 }

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -16,7 +15,7 @@ import ShowFilters from "../showFilters";
 import SubmitQuery from "../submitQuery";
 import ReviewQuery from "../reviewQuery";
 
-import { filter, condition } from "./";
+import { filter, ICondition } from "./";
 
 const StepsManager = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -24,8 +23,9 @@ const StepsManager = () => {
   const [dataType, setDataType] = useState<string>("");
   const [species, setSpecies] = useState<string>("");
   const [fields, setFields] = useState<string>("");
-  const [conditions, setConditions] = useState<condition[]>([]);
+  const [conditions, setConditions] = useState<ICondition>({});
   const [customCondition, setCustomCondition] = useState<string>("");
+  const [condition, setCondition] = useState<string>("");
 
   const [filters, setFilters] = useState<filter[]>([]);
 
@@ -42,7 +42,7 @@ const StepsManager = () => {
     setDataType("");
     setSpecies("");
     setFields("");
-    setConditions([]);
+    setConditions({});
     setCustomCondition("");
     setFilters([]);
   };
@@ -98,6 +98,8 @@ const StepsManager = () => {
           fields={fields}
           conditions={conditions}
           customCondition={customCondition}
+          condition={condition}
+          setCondition={setCondition}
           handleBack={handleBack}
         />
       ),
@@ -159,12 +161,8 @@ const StepsManager = () => {
               dataType={dataType}
               species={species}
               fields={fields}
-              conditions={conditions}
-              customCondition={customCondition}
+              condition={condition}
             />
-            <Button sx={{ mt: 1, ml: 2 }} variant="contained">
-              <Link to="/status">Check query status</Link>
-            </Button>
             <Button
               onClick={handleReset}
               sx={{ mt: 1, ml: 2 }}
