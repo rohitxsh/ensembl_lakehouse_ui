@@ -28,7 +28,7 @@ const SubmitQuery = ({ dataType, species, fields, condition }: props) => {
 
   useLayoutEffect(() => {
     let url = new URL(
-      `${process.env.REACT_APP_BACKEND}/query1/${dataType}/${species}`
+      `${process.env.REACT_APP_BACKEND}/query/${dataType}/${species}`
     );
     if (fields) {
       url.searchParams.append("fields", fields);
