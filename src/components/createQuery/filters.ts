@@ -16,7 +16,6 @@ export const filters = [
       {
         name: "gene_location",
         description: "Location of a gene formatted as chr:start-end",
-        pattern: "^\\s+(?:\\d+-\\d+)?",
         input: ["gene_chr", "start", "end"],
         query:
           "gene_chr='{gene_chr}' AND ((gene_start >= {start} AND gene_start <= {end}) OR (gene_end >= {start} AND gene_end <= {end}) OR (gene_start <= {end} AND gene_end >= {start}))",
