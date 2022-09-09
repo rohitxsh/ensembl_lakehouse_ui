@@ -1,22 +1,13 @@
-- [Google Summer of Code 2021](#google-summer-of-code-2021)
 - [Accessing Ensembl data with Presto and AWS Athena](#accessing-ensembl-data-with-presto-and-aws-athena)
   - [Goal (problem statement)](#goal-problem-statement)
 - [Solution: Ensembl Data LakeHouse](#solution-ensembl-data-lakehouse)
-    - [**Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**](#proposal-httpsdrivegooglecomfiled1jzywmgahcu13wuwuiyndqmi7twdsikieviewuspsharing)
   - [Summary](#summary)
   - [System design](#system-design)
   - [Sub-components](#sub-components)
   - [AWS](#aws)
-    - [AWS Athena](#aws-athena)
-    - [AWS Glue](#aws-glue)
-    - [AWS S3](#aws-s3)
-    - [AWS ElastiCache](#aws-elasticache)
-    - [AWS Amplify](#aws-amplify)
-    - [AWS EC2](#aws-ec2)
   - [Achievements & optimisations:](#achievements--optimisations)
   - [UI snapshots:](#ui-snapshots)
   - [Future improvement suggestions/ideas:](#future-improvement-suggestionsideas)
-  - [Acknowledgement](#acknowledgement)
 
 # Google Summer of Code 2021
 # Accessing Ensembl data with Presto and AWS Athena
