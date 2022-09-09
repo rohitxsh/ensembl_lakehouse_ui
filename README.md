@@ -1,22 +1,13 @@
-- [Google Summer of Code 2021](#google-summer-of-code-2021)
 - [Accessing Ensembl data with Presto and AWS Athena](#accessing-ensembl-data-with-presto-and-aws-athena)
   - [Goal (problem statement)](#goal-problem-statement)
 - [Solution: Ensembl Data LakeHouse](#solution-ensembl-data-lakehouse)
-    - [**Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**](#proposal-httpsdrivegooglecomfiled1jzywmgahcu13wuwuiyndqmi7twdsikieviewuspsharing)
   - [Summary](#summary)
   - [System design](#system-design)
   - [Sub-components](#sub-components)
   - [AWS](#aws)
-    - [AWS Athena](#aws-athena)
-    - [AWS Glue](#aws-glue)
-    - [AWS S3](#aws-s3)
-    - [AWS ElastiCache](#aws-elasticache)
-    - [AWS Amplify](#aws-amplify)
-    - [AWS EC2](#aws-ec2)
   - [Achievements & optimisations:](#achievements--optimisations)
   - [UI snapshots:](#ui-snapshots)
   - [Future improvement suggestions/ideas:](#future-improvement-suggestionsideas)
-  - [Acknowledgement](#acknowledgement)
 
 # Google Summer of Code 2021
 # Accessing Ensembl data with Presto and AWS Athena
@@ -97,6 +88,8 @@ ToDo
     - Readme: [github.com/rohitxsh/ensembl_lakehouse_ui/blob/main/README_react.md](https://github.com/rohitxsh/ensembl_lakehouse_ui/blob/main/README_react.md)
     - Status: Auto-deployed via AWS Amplify at [main.d1y7s04512fj06.amplifyapp.com](https://main.d1y7s04512fj06.amplifyapp.com/)
 
+<br>
+
 ## AWS
 Budget utilised: <50% (includes setup + testing)
 <br>
@@ -112,21 +105,15 @@ Estimated monthly costs: ~ $125
   - Parquet files in AWS S3
   - Meta schema of the parquet files stored in a DB by AWS Glue
 
-<br>
-
 ### [AWS Glue](https://aws.amazon.com/glue/)
 
 **Introduction**: Amazon Glue is a serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
 
 **Details with context**: AWS Glue **Crawler** is responsible for fetching the meta schema of the genomic data parquet files stored in AWS S3 and writing those details to a database to be used by AWS Athena.
 
-<br>
-
 ### [AWS S3](https://aws.amazon.com/s3/)
 
 **Introduction**: Amazon S3 is a object storage to store and retrieve any amount of data.
-
-<br>
 
 ### [AWS ElastiCache](https://aws.amazon.com/elasticache/)
 
@@ -134,15 +121,11 @@ Estimated monthly costs: ~ $125
 
 **Details with context**: AWS ElastiCache is being to provide a Redis instance which is being utilised both as a cache and a database for ex.: task status of celery worker machines, caching Athena query IDs etc.
 
-<br>
-
 ### [AWS Amplify](https://aws.amazon.com/amplify/)
 
 **Introduction**: Amazon Amplify is a set of purpose-built tools and features that lets frontend web and mobile developers quickly and easily build full-stack applications on AWS, with the flexibility to leverage the breadth of AWS services.
 
 **Details with ontext**: AWS Amplify is responsible for auto-deploying the frontend codebase without any additional tooling or configuation.
-
-<br>
 
 ### [AWS EC2](https://aws.amazon.com/ec2/)
 
@@ -166,46 +149,32 @@ Estimated monthly costs: ~ $125
 ![Home page 3](./ui-snapshots/home_3.png)
 ![Home page 4](./ui-snapshots/home_4.png)
 ![Status page](./ui-snapshots/status.png)
-![Export page](./ui-snapshots/export- [Google Summer of Code 2021](#google-summer-of-code-2021)
-- [Google Summer of Code 2021](#google-summer-of-code-2021)
-- [Accessing Ensembl data with Presto and AWS Athena](#accessing-ensembl-data-with-presto-and-aws-athena)
-  - [Goal (problem statement)](#goal-problem-statement)
-- [Solution: Ensembl Data LakeHouse](#solution-ensembl-data-lakehouse)
-    - [**Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**](#proposal-httpsdrivegooglecomfiled1jzywmgahcu13wuwuiyndqmi7twdsikieviewuspsharing)
-  - [Summary](#summary)
-  - [System design](#system-design)
-  - [Sub-components](#sub-components)
-  - [AWS](#aws)
-    - [AWS Athena](#aws-athena)
-    - [AWS Glue](#aws-glue)
-    - [AWS S3](#aws-s3)
-    - [AWS ElastiCache](#aws-elasticache)
-    - [AWS Amplify](#aws-amplify)
-    - [AWS EC2](#aws-ec2)
-  - [Achievements & optimisations:](#achievements--optimisations)
-  - [UI snapshots:](#ui-snapshots)
-  - [Future improvement suggestions/ideas:](#future-improvement-suggestionsideas)
-  - [Acknowledgement](#acknowledgement)
+![Export page](./ui-snapshots/export.png)
 
 <br>
 
 ## Future improvement suggestions/ideas:
-UI/UX improvements
+
+UI/UX improvements:
 - Include query creation datetime along with the status of the query ID.
 - The filter fields on the query build step in UI should have proper validations and should not allow empty or invalid inputs
 - Status page should also include a table which should automatically show the status of last five query IDs along with other details such as creation datetime, query submitted etc. to help identify queries. This can be achieved using local browser WebStorage
 - Add option to store named queries to easily identify queries
 - Allow users to auto-populate fields in query builder using older query IDs to help with cases when only small modifications are required.
 - Auto-refresh status and export page until status is Done
+
 Best practices:
-  - Incorporate tests in the codebase for example: unit tests
+  - Incorporate tests in the codebase for example unit tests
+  
 Scaling the system:
   - Add more species
   - Incorporate an alert and monitoring system
+ 
 Analytics:
   - Use logs to identify common request patterns
   - Integrate a privacy focused web analytics tool in the frontend to identify areas of improvement based on common user patterns
 
+<br>
 
 ## Acknowledgement
 I would like to thank Andy Yates, Bilal El Houdaigui and Marc Chakiachvili for the constant support, invaluable learnings and guidance throughout my GSoC journey.
