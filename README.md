@@ -9,9 +9,9 @@
   - [User journey](#user-journey)
   - [Sub-components](#sub-components)
   - [AWS](#aws)
-  - [Achievements & optimisations:](#achievements--optimisations)
-  - [UI snapshots:](#ui-snapshots)
-  - [Future improvement suggestions/ideas:](#future-improvement-suggestionsideas)
+  - [Achievements & optimisations](#achievements--optimisations)
+  - [UI snapshots](#ui-snapshots)
+  - [Future improvement suggestions/ideas](#future-improvement-suggestionsideas)
 
 # Google Summer of Code 2021
 # Accessing Ensembl data with Presto and AWS Athena
@@ -171,7 +171,7 @@ Estimated monthly costs: ~ $125
 
 <br>
 
-## Achievements & optimisations:
+## Achievements & optimisations
  - The output files from the python script are structured using **Hive style partitioning** where the top directory denotes the data type, and the sub-directory denotes the species, for example, the S3 URI for the gene of homo_sapiens will be *s3://ensembl-genome-data-parquet/gene/**species=homo_sapiens**/homo_sapiens_core_106_38-gene.parquet*. Hive style partitioning is supported by Athena, which helps to optimize the data querying process by limiting the number of parquet files to be referenced by Athena.
  - Athena treats each new/duplicate query as a separate request. It does retain the history of query IDs for a period of 45 days so identifying duplicate queries and reusing query IDs from the cache helps to reduce AWS costs as the system scales.
  - The system can be easily extended for more species and datatype as there are no hard-code dependencies which proves the system is also dynamic in nature and can be easily updated using configuration files to add more datatypes and species in the future.
@@ -179,7 +179,7 @@ Estimated monthly costs: ~ $125
 
 <br>
 
-## UI snapshots:
+## UI snapshots
 ![Home page 1](./ui-snapshots/home_1.png)
 ![Home page 2](./ui-snapshots/home_2.png)
 ![Home page 3](./ui-snapshots/home_3.png)
@@ -189,7 +189,7 @@ Estimated monthly costs: ~ $125
 
 <br>
 
-## Future improvement suggestions/ideas:
+## Future improvement suggestions/ideas
 
 UI/UX improvements:
 - Include query creation DateTime along with the status of the query ID.
