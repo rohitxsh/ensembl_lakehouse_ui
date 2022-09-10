@@ -1,8 +1,12 @@
 - [Accessing Ensembl data with Presto and AWS Athena](#accessing-ensembl-data-with-presto-and-aws-athena)
   - [Goal (problem statement)](#goal-problem-statement)
 - [Solution: Ensembl Data LakeHouse](#solution-ensembl-data-lakehouse)
+    - [**Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**](#proposal-httpsdrivegooglecomfiled1jzywmgahcu13wuwuiyndqmi7twdsikieviewuspsharing)
+    - [**Frontend: https://main.d1y7s04512fj06.amplifyapp.com/**](#frontend-httpsmaind1y7s04512fj06amplifyappcom)
+    - [**Backend documentation: https://18.134.3.199/docs#/**](#backend-documentation-https181343199docs)
   - [Summary](#summary)
   - [System design](#system-design)
+  - [User journey](#user-journey)
   - [Sub-components](#sub-components)
   - [AWS](#aws)
   - [Achievements & optimisations:](#achievements--optimisations)
@@ -29,11 +33,43 @@ The goal of this project was to build a NextGen replacement for the [BioMart](ht
 
 ### **Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**
 
+<br>
+
+### **Frontend: https://main.d1y7s04512fj06.amplifyapp.com/**
+### **Backend documentation: https://18.134.3.199/docs#/**
+
+<br>
+
 ## Summary
 The focus of the end solution is to present full-stack software that can demonstrate the feasibility of the proposed system architecture to counter the scalability issues. The solution consists of a python script that migrates the genomic data from Ensembl's MySQL database to parquet files which are then stored on AWS S3. The backend system provides user-friendly isolation via Application Programming Interface over the AWS APIs to request required genomic data. The frontend allows users to interact with this system using a GUI to fetch the required genomic data for the desired datatype and species with appropriate filters.
 
+<br>
+
 ## System design
-ToDo
+![sql2parquet](./system-design/sql2parquet.png)
+![ensembl_data_lakehouse](./system-design/ensembl_data_lakehouse.png)
+
+<br>
+
+## User journey
+1. The user lands on https://main.d1y7s04512fj06.amplifyapp.com/ and selects the desired datatype.
+2. The user selects the desired species.
+3. The user builds the query by
+
+   i. selecting the required fields to be retained in the result.
+
+   ii. adding custom filers as required by selecting the "**+**" icon
+4. User clicks on continue and reviews the query in the next step. The user optionally goes back to fix issues by selecting the Back button or resets the whole journey using the Reset button.
+5. User submits the query and receives a query ID.
+6. User selects on "Check query status" button and verifies if the status of the query is Done, otherwise wait until it's done.
+7. User verifies the result via the Preview table and then downloads the result file in CSV format by pressing the Download button.
+8. User then selects the "Export result" button.
+9.  User lands on the export page and selects the desired file format.
+10. User submits the request and keeps re-submitting until the status is Done.
+11. User then downloads the file using the Download button and ends the journey.
+
+<br>
+
 ## Sub-components
 - [Python script to migrate genomic data from MySQL DB to parquet files (with added support to upload the files to AWS S3)](https://github.com/rohitxsh/sql2parquet_py)
   - The python script is responsible for exporting genomic data from the Ensembl MySQL database to parquet files. It writes the output, and parquet files to the defined S3 bucket.
