@@ -212,5 +212,10 @@ Analytics:
 
 <br>
 
+## Deviations from solution proposal
+- The current system only supports human and mouse species because loading the other mentioned species i.e. e.coli and SARS-CoV-2 had some limitations in terms of data accessibility and required manual intervention. These limitations can be easily removed in future by running the python script inside Ensembl network as E. coli and SARS-CoV-2's genomic data resides inside Ensembl intranet and therefore it wasn't accessible from outside internet. It was possible to load these data manually by loading the SQL dump to an external/local SQL server but these species were skippes as it wasn't affecting the goal that was to understand the feasibility and scalability of the proposed system architecture.
+
+<br>
+
 ## Acknowledgement
 I would like to thank Andy Yates, Bilal El Houdaigui, and Marc Chakiachvili for their constant support, invaluable learning, and guidance throughout my GSoC journey.
