@@ -4,6 +4,9 @@
     - [**Proposal: https://drive.google.com/file/d/1jzyWmgahCU13WUwUIyndQMi7twdsikie/view?usp=sharing**](#proposal-httpsdrivegooglecomfiled1jzywmgahcu13wuwuiyndqmi7twdsikieviewuspsharing)
     - [**Frontend: https://main.d1y7s04512fj06.amplifyapp.com/**](#frontend-httpsmaind1y7s04512fj06amplifyappcom)
     - [**Backend documentation: https://18.134.3.199/docs#/**](#backend-documentation-https181343199docs)
+    - [**Frontend repo: https://github.com/rohitxsh/ensembl_lakehouse_ui**](#frontend-repo-httpsgithubcomrohitxshensembl_lakehouse_ui)
+    - [**Backend repo: https://github.com/rohitxsh/ensembl_lakehouse**](#backend-repo-httpsgithubcomrohitxshensembl_lakehouse)
+    - [**SQL to parquet python script repo: https://github.com/rohitxsh/sql2parquet_py**](#sql-to-parquet-python-script-repo-httpsgithubcomrohitxshsql2parquet_py)
   - [Summary](#summary)
   - [System design](#system-design)
   - [User journey](#user-journey)
@@ -37,6 +40,12 @@ The goal of this project was to build a NextGen replacement for the [BioMart](ht
 
 ### **Frontend: https://main.d1y7s04512fj06.amplifyapp.com/**
 ### **Backend documentation: https://18.134.3.199/docs#/**
+
+<br>
+
+### **Frontend repo: https://github.com/rohitxsh/ensembl_lakehouse_ui**
+### **Backend repo: https://github.com/rohitxsh/ensembl_lakehouse**
+### **SQL to parquet python script repo: https://github.com/rohitxsh/sql2parquet_py**
 
 <br>
 
