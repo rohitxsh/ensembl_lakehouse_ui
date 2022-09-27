@@ -41,6 +41,8 @@ The goal of this project was to build a NextGen replacement for the [BioMart](ht
 ### **Frontend: https://main.d1y7s04512fj06.amplifyapp.com/**
 ### **Backend documentation: https://18.134.3.199/docs#/**
 
+[Notes for known issue: If you face any certificate related technical issue when loading datatype / datatype dropdown, try to Clear Cache and Hard Load or switch to a different browser]
+
 <br>
 
 ### **Frontend repo: https://github.com/rohitxsh/ensembl_lakehouse_ui**
